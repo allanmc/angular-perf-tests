@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo">
+<head>
+  <meta charset="utf-8">
+  <title>AngularJS ui-select</title>
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+
+  <script src="bower_components/ui-select/dist/select.js"></script>
+  <link rel="stylesheet" href="bower_components/ui-select/dist/select.css">
+  
+  <script src="bower_components/angular-fast-repeat/src/fastRepeat.js"></script>
+
+  <script src="demo.js"></script>
+
+  <script src="bower_components/ng-stats/dist/ng-stats.js"></script>
+  
+  <style>
+    body {
+		margin: 10px;
+	}
+	p {
+		margin: 10px;
+	}
+  </style>
+</head>
+
+<body ng-controller="DemoCtrl">
+
+  <h3>Bootstrap theme</h3>
+  <button class="btn btn-default btn-xs" ng-click="show = !show">Toggle ng-repeat</button>
+  <button class="btn btn-default btn-xs" ng-click="showFast = !showFast">Toggle fast-repeat</button>
+
+  <p>Selected: {{country.selected}}</p>
+	
+  <div class="row" ng-if="show">
+	<div class="col-md-2" ng-repeat="item in range track by item.val">
+	  <ui-select ng-model="country.selected" ng-disabled="disabled" >
+		<ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
+		<ui-select-choices repeat="country in countries | filter: $select.search">
+		  <span ng-bind-html="country.name | highlight: $select.search"></span>
+		  <small ng-bind-html="country.code | highlight: $select.search"></small>
+		</ui-select-choices>
+	  </ui-select>
+	</div>
+  </div>
+  
+  <div class="row" ng-if="showFast">
+	<div class="col-md-2" fast-repeat="index in range">
+	  <ui-select ng-model="country.selected" ng-disabled="disabled" >
+		<ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
+		<ui-select-choices repeat="country in countries | filter: $select.search">
+		  <span ng-bind-html="country.name | highlight: $select.search"></span>
+		  <small ng-bind-html="country.code | highlight: $select.search"></small>
+		</ui-select-choices>
+	  </ui-select>
+	</div>
+  </div>
+
+  
+</body>
+</html>
